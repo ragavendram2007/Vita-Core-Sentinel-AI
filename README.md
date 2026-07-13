@@ -10,20 +10,10 @@ The platform is designed around a three-tier architecture:
 
 ```mermaid
 graph TD
-<<<<<<< HEAD
     Client["Vite React Frontend"] <-->|API Requests & Responses| Express["Node.js Express Backend"]
     Express <-->|Read/Write| DB[("sqlite3 Database")]
     Express <-->|Image Post & Metrics| PyServer["PyTorch CNN Server"]
     Express <-->|RAG Guidelines & Reports| Gemini["Gemini LLM Advisor"]
-=======
-    Client["Vite React Frontend"] -->|API Requests| Express["Node.js Express Backend"]
-    Express -->|Data Responses| Client
-    Express -->|Read/Write| DB[("sqlite3 Database")]
-    Express -->|Image Post| PyServer["PyTorch CNN Server"]
-    PyServer -->|Metrics JSON| Express
-    Express -->|RAG Guidelines| Gemini["Gemini LLM Advisor"]
-    Gemini -->|Remediation Report| Express
->>>>>>> ce94b61 (Updated file)
     Express -->|Dispatch Alert| SMS["SMS Alerts & Simulator"]
 ```
 
