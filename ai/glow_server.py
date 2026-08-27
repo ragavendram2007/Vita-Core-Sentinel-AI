@@ -293,7 +293,7 @@ def run(port=5001):
         httpd.server_close()
 
 if __name__ == '__main__':
-    port_arg = 5001
+    port_arg = int(os.environ.get('PORT', '5001'))
     if len(sys.argv) > 1:
         try:
             port_arg = int(sys.argv[1])

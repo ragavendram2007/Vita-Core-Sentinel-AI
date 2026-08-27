@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Activity, Mail, Lock, User, LogIn, ArrowRight } from 'lucide-react';
 import Dashboard from './components/Dashboard';
 
-const BACKEND_URL = 'http://localhost:5000';
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
 
 export default function App() {
   const [user, setUser] = useState(null);

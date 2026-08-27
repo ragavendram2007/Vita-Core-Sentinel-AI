@@ -168,6 +168,22 @@ npm.cmd run dev
 
 ---
 
+## ☁️ Deploying to Render
+
+This repository includes a [`render.yaml`](render.yaml) Blueprint for the complete deployment:
+
+- `sentinel-frontend`: Vite static site
+- `sentinel-api`: Node.js API with a persistent disk for SQLite and uploaded images
+- `sentinel-ai`: private Python inference service
+
+Create a Render account, choose **New > Blueprint**, connect this GitHub repository, and select `render.yaml`. Render will ask for the secret values marked `sync: false`; add `GEMINI_API_KEY` and the Twilio variables if those integrations are required. The API service uses a paid Starter plan because persistent disks are required for SQLite and uploads.
+
+After the first deployment, copy the actual `sentinel-api` Render URL into `VITE_BACKEND_URL` on `sentinel-frontend`, then redeploy the frontend. Vercel is not suitable for the full stack because it cannot reliably host the long-running PyTorch service or preserve local SQLite and upload files.
+
+The Render disk is suitable for a small demo or single-instance deployment. For production scale, migrate SQLite to Postgres and uploads to object storage.
+
+---
+
 ## 📊 Core Features & Functionalities
 
 ### 📷 Bioluminescent Mycelial Glow Ingestion

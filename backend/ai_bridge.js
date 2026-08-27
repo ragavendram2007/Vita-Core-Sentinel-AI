@@ -3,6 +3,8 @@ const { spawn } = require('child_process');
 const path = require('path');
 const fs = require('fs');
 
+const aiServiceUrl = new URL(process.env.AI_SERVICE_URL || 'http://127.0.0.1:5001');
+
 /**
  * Executes AI image metrics extraction.
  * Tries the persistent Python server (port 5001) first for instant sub-100ms returns.
@@ -23,10 +25,10 @@ function runAIAnalysis(imagePath, originalName = '', calibration = {}) {
     const encodedPath = encodeURIComponent(imagePath);
     const encodedName = encodeURIComponent(originalName);
     
-    const options = {
-      hostname: '127.0.0.1',
-      port: 5001,
-      path: `/analyze?path=${encodedPath}&originalname=${encodedName}&gain=${gain}&cutoff=${cutoff}&ambient_lux=${ambient_lux}&mycelium_age=${mycelium_age}`,
+        const options = {
+      hostname: aiServiceUrl.hostname,
+      port: aiServiceUrl.port || 80,
+      path: `${aiServiceUrl.pathname.replace(/\/$/, '')}/analyze?path=${encodedPath}&originalname=${encodedName}&gain=${gain}&cutoff=${cutoff}&ambient_lux=${ambient_lux}&mycelium_age=${mycelium_age}`,
       method: 'GET',
       timeout: 1200 // 1.2s timeout before fallback
     };
